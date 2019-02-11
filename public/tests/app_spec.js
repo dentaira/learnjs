@@ -18,8 +18,7 @@ describe('LearnJS', function () {
     describe('problem view', function () {
         it('has a title that includes the problem number', function () {
             var view = learnjs.problemView('1');
-            // 改行やスペースが含まれていたのでtrim
-            expect(view.text().trim()).toEqual('Problem #1 Coming soon!');
+            expect(view.find('.title').text()).toEqual('Problem #1');
         });
     });
 
@@ -35,4 +34,15 @@ describe('LearnJS', function () {
         $(window).trigger('hashchange');
         expect(learnjs.showView).toHaveBeenCalledWith(window.location.hash);
     })
+
+    it('has a correct description', function () {
+        var view = learnjs.problemView('1');
+        expect(view.find('[data-name=description]').text()).toEqual('What is truth?');
+    })
+
+    it('has a correct code', function () {
+        var view = learnjs.problemView('1');
+        expect(view.find('[data-name=code]').text()).toEqual('function problem() {return __; }');
+    })
+
 });
